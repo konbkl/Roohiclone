@@ -19,9 +19,9 @@ LOGGER = logging.getLogger("BETA BOT HUB | 👑 THE SHIV")
 SHRUTI_API_URL = os.environ.get("SHRUTI_API_URL", "https://shrutibots.site")
 SHRUTI_API_KEY = os.environ.get("SHRUTI_API_KEY", "")
 
-# 🟡 Secondary API (MusicSp)
-MUSICSP_API_URL = os.environ.get("MusicSp_API_URL", "https://apisparrow.site")
-MUSICSP_API_KEY = os.environ.get("MusicSp_API_KEY", "Enter Your Api")
+# 🟡 Secondary API (Inflex)
+INFLEX_API_URL = os.environ.get("INFLEX_API_URL", "https://teaminflex.xyz")
+INFLEX_API_KEY = os.environ.get("INFLEX_API_KEY", "INFLEX85126228D")
 
 def time_to_seconds(time_str):
     stringt = str(time_str)
@@ -107,13 +107,13 @@ async def download_song(link: str, title: str = None) -> str:
     shruti_result = await external_api_download(SHRUTI_API_URL, SHRUTI_API_KEY, video_id, "audio", title, "Shruti")
     if shruti_result: return shruti_result
 
-    LOGGER.warning(f"🔴 Shruti API failed for '{title}'. Hopping to MusicSp API...")
+    LOGGER.warning(f"🔴 Shruti API failed for '{title}'. Hopping to Inflex API...")
 
-    # 2. Secondary API (MusicSp Fallback)
-    musicsp_result = await external_api_download(MUSICSP_API_URL, MUSICSP_API_KEY, video_id, "audio", title, "MusicSp")
-    if musicsp_result: return musicsp_result
+    # 2. Secondary API (Inflex Fallback)
+    inflex_result = await external_api_download(INFLEX_API_URL, INFLEX_API_KEY, video_id, "audio", title, "Inflex")
+    if inflex_result: return inflex_result
     
-    LOGGER.error(f"🔴 Both Shruti and MusicSp APIs failed to download '{title}'.")
+    LOGGER.error(f"🔴 Both Shruti and Inflex APIs failed to download '{title}'.")
     return None
 
 async def download_video(link: str, title: str = None) -> str:
@@ -131,15 +131,14 @@ async def download_video(link: str, title: str = None) -> str:
     shruti_result = await external_api_download(SHRUTI_API_URL, SHRUTI_API_KEY, video_id, "video", title, "Shruti")
     if shruti_result: return shruti_result
 
-    LOGGER.warning(f"🔴 Shruti API failed for '{title}'. Hopping to MusicSp API...")
+    LOGGER.warning(f"🔴 Shruti API failed for '{title}'. Hopping to Inflex API...")
 
-    # 2. Secondary API (MusicSp Fallback)
-    musicsp_result = await external_api_download(MUSICSP_API_URL, MUSICSP_API_KEY, video_id, "video", title, "MusicSp")
-    if musicsp_result: return musicsp_result
+    # 2. Secondary API (Inflex Fallback)
+    inflex_result = await external_api_download(INFLEX_API_URL, INFLEX_API_KEY, video_id, "video", title, "Inflex")
+    if inflex_result: return inflex_result
     
-    LOGGER.error(f"🔴 Both Shruti and MusicSp APIs failed to download '{title}'.")
+    LOGGER.error(f"🔴 Both Shruti and Inflex APIs failed to download '{title}'.")
     return None
-
 # ----------------- YOUTUBE API CLASS -----------------
 
 class YouTubeAPI:
