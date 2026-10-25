@@ -16,8 +16,8 @@ DOWNLOAD_DIR = "downloads"
 LOGGER = logging.getLogger("BETA BOT HUB | 👑 THE SHIV")
 
 # 🟢 Primary API (Shruti)
-SHRUTI_API_URL = os.environ.get("SHRUTI_API_URL", "https://shrutibots.site").rstrip("/")
-SHRUTI_API_KEY = os.environ.get("SHRUTI_API_KEY", "")
+SHRUTI_API_URL = os.environ.get("SHRUTI_API_URL", " to https://api.shrutibots.in")
+SHRUTI_API_KEY = os.environ.get("SHRUTI_API_KEY", "ShrutiBots7Yo5iWyWiyQKME4mrS6r")
 
 def time_to_seconds(time_str):
     stringt = str(time_str)
