@@ -5,6 +5,14 @@ from pyrogram import filters
 
 load_dotenv()
 
+# --- tolerant env reading: strips stray quotes / ':"' that people leave when editing .env ---
+import os as _os
+for _k, _v in list(_os.environ.items()):
+    if isinstance(_v, str) and _v != _v.strip():
+        _os.environ[_k] = _v.strip()
+    if _k.endswith("_IMG_URL") and isinstance(_v, str):
+        _os.environ[_k] = _v.strip().strip("'\"").rstrip(":").strip("'\"")
+
 API_ID = int(getenv("API_ID", "0"))
 API_HASH = getenv("API_HASH")
 
@@ -96,10 +104,19 @@ TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "5242880000"))
 TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "5242880000"))
 
 # 🟢 4 ASSISTANT SESSIONS ADDED HERE
-STRING1 = getenv("STRING_SESSION", "")
-STRING2 = getenv("STRING_SESSION2", "")
-STRING3 = getenv("STRING_SESSION3", "")
-STRING4 = getenv("STRING_SESSION4", "")
+def _clean_session(name):
+    """Remove spaces / newlines / quotes from a pasted session string and restore '=' padding."""
+    val = "".join(str(getenv(name, "") or "").split()).strip("'\"")
+    if val and val.lower() != "none":
+        val += "=" * (-len(val) % 4)
+        return val
+    return ""
+
+
+STRING1 = _clean_session("STRING_SESSION")
+STRING2 = _clean_session("STRING_SESSION2")
+STRING3 = _clean_session("STRING_SESSION3")
+STRING4 = _clean_session("STRING_SESSION4")
 
 START_IMG_URL = getenv("START_IMG_URL", "https://files.catbox.moe/pozv5s.jpg").split()
 HELP_IMG_URL = getenv("HELP_IMG_URL", "https://files.catbox.moe/dk92ep.jpg").split()
